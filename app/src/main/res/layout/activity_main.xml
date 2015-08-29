@@ -14,14 +14,14 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/back_1_400x600">
    </ImageView>
-    <ImageView
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/star"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/star_128x128">
-    </ImageView>
+    </ImageView>-->
 
     <EditText
         android:layout_width="wrap_content"

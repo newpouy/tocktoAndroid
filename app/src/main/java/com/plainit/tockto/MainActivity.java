@@ -24,6 +24,8 @@ import com.kakao.usermgmt.MeResponseCallback;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.UserProfile;
 import com.kakao.util.exception.KakaoException;
+import com.plainit.tockto.model.User;
+import com.plainit.tockto.util.UseServerREST;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -151,6 +153,25 @@ public class MainActivity extends AppCompatActivity {
             // 프로그레스바를 보이고 있었다면 중지하고 세션 오픈후 보일 페이지로 이동
             //Logger.i("onSessionOpened");
             Log.d(TAG, "onSessionOpened");
+            UserManagement.requestMe(new MeResponseCallback() {
+                @Override
+                public void onSuccess(UserProfile userProfile) {
+                    Log.d(TAG, userProfile.getNickname());
+                    Log.d(TAG, String.valueOf(userProfile.getId()));
+                    String kakaoID = String.valueOf(userProfile.getId());
+                    UseServerREST useServerREST = new UseServerREST();
+                    useServerREST.execute("testID");
+                    //User user = useServerREST.getUserInfo(kakaoID);
+                    //Log.d(TAG, user.getAuthID());
+
+                }
+                @Override
+                public void onNotSignedUp() {}
+                @Override
+                public void onSessionClosedFailure(APIErrorResult apiErrorResult) {}
+                @Override
+                public void onFailure(APIErrorResult apiErrorResult) {}
+            });
             Intent intent = new Intent(MainActivity.this, MatchingActivity.class);
             startActivity(intent);
         }
@@ -186,26 +207,6 @@ public class MainActivity extends AppCompatActivity {
         emailBtn.setVisibility(View.GONE);
         fbBtn.setVisibility(View.GONE);
         kakaoBtn.setVisibility(View.GONE);
-        UserManagement.requestMe(new MeResponseCallback() {
-            @Override
-            public void onSuccess(UserProfile userProfile) {
-                Log.d(TAG, userProfile.getNickname());
-            }
 
-            @Override
-            public void onNotSignedUp() {
-
-            }
-
-            @Override
-            public void onSessionClosedFailure(APIErrorResult apiErrorResult) {
-
-            }
-
-            @Override
-            public void onFailure(APIErrorResult apiErrorResult) {
-
-            }
-        });
     }
 }
